@@ -15,7 +15,7 @@ async function init() {
     // initially addEmp == true
     while (addEmp) {
         // first iteration: ask the question if they want to add an employee
-        inquirer.prompt([
+        addEmp = await inquirer.prompt([
             {
                 type: 'confirm',
                 name: 'newEmployee',
@@ -25,11 +25,12 @@ async function init() {
             // inquirer.prompt. 
             // If they say yes then newEmployee == true
             // otherwise newEmployee == false
-            .then(({newEmployee}) => {
+            .then( async ({newEmployee}) => {
                 console.log('newEmployee = ' + newEmployee)
                 if (newEmployee) {
                     // newEmployee == true
-                    addEmployee();
+                    await addEmployee();
+                    return true;
                 } else {
                     // newEmployee == false
                     console.log(employees);
@@ -42,8 +43,8 @@ async function init() {
     }
 };
 
-function addEmployee() {
-    inquirer
+async function addEmployee() {
+    await inquirer
         .prompt([{
             type: 'text',
             name: 'name',
