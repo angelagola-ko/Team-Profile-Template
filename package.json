@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "inquirer": "^8.2.4",
+    "jest": "^28.1.0"
+  },
+  "name": "team-profile-template",
+  "description": "![badge](https://img.shields.io/badge/license-mit-blue)",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angelagola-ko/Team-Profile-Template.git"
+  },
+  "author": "Angela Gola",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/angelagola-ko/Team-Profile-Template/issues"
+  },
+  "homepage": "https://github.com/angelagola-ko/Team-Profile-Template#readme"
+}
