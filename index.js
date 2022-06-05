@@ -6,12 +6,12 @@ const Intern = require('./lib/Intern');
 
 
 // Employees Object Containing Team
-const employees = { Manager: [], Engineer: [], Intern: [] };
+const employees = [];
 
 init();
 
 async function init() {
-    let addEmp= true;
+    let addEmp = true;
     // initially addEmp == true
     while (addEmp) {
         // first iteration: ask the question if they want to add an employee
@@ -25,7 +25,7 @@ async function init() {
             // inquirer.prompt. 
             // If they say yes then newEmployee == true
             // otherwise newEmployee == false
-            .then( async ({newEmployee}) => {
+            .then(async ({ newEmployee }) => {
                 console.log('newEmployee = ' + newEmployee)
                 if (newEmployee) {
                     // newEmployee == true
@@ -35,12 +35,14 @@ async function init() {
                     // newEmployee == false
                     console.log(employees);
                     addEmp = false;
-                }             
+                }
             })
-            // changing addEmp to false so it only runs once
-            //addEmp = false;
-            //.then(({ newEmployee }) => newEmployee ? addEmployee() : console.log(employees));
+        // changing addEmp to false so it only runs once
+        //addEmp = false;
+        //.then(({ newEmployee }) => newEmployee ? addEmployee() : console.log(employees));
     }
+    addHTML(employees)
+
 };
 
 async function addEmployee() {
@@ -68,7 +70,7 @@ async function addEmployee() {
                 'Manager',
                 'Intern'
             ]
-        }, 
+        },
         // Q2 : Employee ID
         {
             type: 'text',
@@ -81,7 +83,7 @@ async function addEmployee() {
                 } else {
                     console.log("please enter a valid id.")
                 }
-            }   
+            }
         },
         // Q3: Email
         {
@@ -90,7 +92,7 @@ async function addEmployee() {
             message: 'What is their email?',
             validate: email => {
                 if (email) {
-                    console.log('\n',email);
+                    console.log('\n', email);
                     return true;
                 } else {
                     console.log("please enter a email.")
@@ -143,40 +145,113 @@ async function addEmployee() {
             when: ({ role }) => role == 'Intern'
         },
         ])
-        .then(answers=>{ // Adding the Employee to the employees object
+        .then(answers => { // Adding the Employee to the employees object
             console.log(answers);
-                if(answers.role == 'Manager') {
-                    employees.Manager.push(new Manager(
-                        answers.name,
-                        answers.id,
-                        answers.email,
-                        answers.officeNumber )
-                        );
-                };
-                if(answers.role == 'Engineer') {
-                    employees.Engineer.push(new Engineer(
-                        answers.name,
-                        answers.id,
-                        answers.email,
-                        answers.github,
-                    ));
-                };
-                if (answers.role == 'Intern') {
-                    employees.Intern.push(new Intern(
-                        answers.name,
-                        answers.id,
-                        answers.email,
-                        answers.school,
-                    ));
-                };                
-                console.log(employees)
-            });
-        };
+            if (answers.role == 'Manager') {
+                employees.push(new Manager(
+                    answers.name,
+                    answers.id,
+                    answers.email,
+                    answers.officeNumber,
+                    'Manager')
+                );
+            };
+            if (answers.role == 'Engineer') {
+                employees.push(new Engineer(
+                    answers.name,
+                    answers.id,
+                    answers.email,
+                    answers.github,
+                    'Engineer'
+                ));
+            };
+            if (answers.role == 'Intern') {
+                employees.push(new Intern(
+                    answers.name,
+                    answers.id,
+                    answers.email,
+                    answers.school,
+                    'Intern'
+                ));
+            };
+            console.log(employees)
+        });
+};
 
 
-    const createHTML = () => {
-        fs.writeFile('output/newindex.html', (err) => {
-            if(err) throw(err);
-            console.log('HTML file is complete!');
-        })
+// const createHTML = (member) => {
+//     fs.writeFile('output/newindex.html', (err) => {
+//         if(err) throw(err);
+//         console.log('HTML file is complete!');
+//     })
+// }
+function addHTML(member) {
+    let data = "";
+    if (member.length === 0) {
+        data = `no employees`
     }
+    else {
+
+        for (i = 0; i < member.length; i++) {
+
+
+            console.log('member', member)
+            const name = member[i].getName();
+            const id = member[i].getId();
+            const role = member[i].getRole();
+            const email = member[i].getEmail();
+
+            //Adding html to html file
+
+            if (role === "Engineer") {
+                const github = member[i].getGithub();
+                data += `
+                <div class="card m-3 shadow bg-light" style="width: 18rem;">
+                <div class="card-body bg-primary">
+                <h2 class="card-title bg-primary text-white">${name}</h2>
+                <h4 class="text-white"><i class="fas fa-glasses text-white"></i> Engineer</h4>
+            </div>
+            <div class="card-body bg-light mt-4 mb-4">
+                <h5>ID:${id}</h5>
+                <h5>Email: ${email}</h5>
+                <h5>Office Githu: ${github}</h5>
+            </div>
+            </div>`
+            } else if (role === "Manager") {
+                const officeNumero = member[i].getOfficeNumber();
+                data += `
+                <div class="card m-3 shadow bg-light" style="width: 18rem;">
+                    <div class="card-body bg-primary">
+                        <h2 class="card-title bg-primary text-white">${name}</h2>
+                        <h4 class="text-white"><i class="fas fa-mug-hot text-white"></i> Manager</h4>
+                    </div>
+                    <div class="card-body bg-light mt-4 mb-4">
+                        <h5>ID: ${id}</h5>
+                        <h5>Email: ${email}</h5>
+                        <h5>Office Number: ${officeNumero}</h5>
+                    </div>
+                </div> `
+            } else {
+                const schoolIsCool = member[i].getSchool();
+                data += ` <div class="card m-3 shadow bg-light" style="width: 18rem;">
+                <div class="card-body bg-primary">
+                    <h2 class="card-title bg-primary text-white">${name}</h2>
+                    <h4 class="text-white"><i class="fas fa-school text-white"></i> Intern</h4>
+                </div>
+                <div class="card-body bg-light mt-4 mb-4">
+                    <h5>ID: ${id} </h5>
+                    <h5>Email: ${email}</h5>
+                    <h5>School: ${schoolIsCool}</h5>
+                </div>
+            </div>
+            `
+            } 
+        }
+    }
+    data += `
+    </main>  
+    </body>
+    </html>`
+    console.log('data', data)
+    fs.appendFile("./dist/index2.html", data, err => { if (err) throw err });
+};
