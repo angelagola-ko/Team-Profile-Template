@@ -185,13 +185,16 @@ async function addEmployee() {
 //         console.log('HTML file is complete!');
 //     })
 // }
+
+//Appends HTML to index.html
+//Checks to see if employees were entered.
 function addHTML(member) {
     let data = "";
     if (member.length === 0) {
         data = `no employees`
     }
     else {
-
+//Loops over employees
         for (i = 0; i < member.length; i++) {
 
 
@@ -253,5 +256,5 @@ function addHTML(member) {
     </body>
     </html>`
     console.log('data', data)
-    fs.appendFile("./dist/index2.html", data, err => { if (err) throw err });
+    fs.appendFile("./dist/index.html", data, err => { if (err) throw err });
 };

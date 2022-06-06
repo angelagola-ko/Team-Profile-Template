@@ -30,10 +30,9 @@
 
 
   #### Open coding terminal, run program, and enter prompts.
+  #### Click [Here](https://drive.google.com/file/d/1J3y2N4x6qyeDTb7TifRseb-ugU0bZ6aZ/view) for a live video demonstration.
 
-
-  ![Example Image](./images/ExampleImg.png)
-
+  ![Example Image](./dist/assets/images/example.png)
 
   
   ## License
