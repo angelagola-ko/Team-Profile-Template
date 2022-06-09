@@ -216,8 +216,8 @@ function addHTML(member) {
             </div>
             <div class="card-body bg-light mt-4 mb-4">
                 <h5>ID:${id}</h5>
-                <h5>Email: ${email}</h5>
-                <h5>Office Githu: ${github}</h5>
+                <h5>Email: <a href="mailto:${email}">${email}</a></h5>
+                <h5>Github: <a href="https://github.com/${github}">${github}</a></h5>
             </div>
             </div>`
             } else if (role === "Manager") {
@@ -230,7 +230,7 @@ function addHTML(member) {
                     </div>
                     <div class="card-body bg-light mt-4 mb-4">
                         <h5>ID: ${id}</h5>
-                        <h5>Email: ${email}</h5>
+                        <h5>Email: <a href="mailto:${email}">${email}</a></h5>
                         <h5>Office Number: ${officeNumero}</h5>
                     </div>
                 </div> `
@@ -243,7 +243,7 @@ function addHTML(member) {
                 </div>
                 <div class="card-body bg-light mt-4 mb-4">
                     <h5>ID: ${id} </h5>
-                    <h5>Email: ${email}</h5>
+                    <h5>Email: <a href="mailto:${email}">${email}</a></h5>
                     <h5>School: ${schoolIsCool}</h5>
                 </div>
             </div>
